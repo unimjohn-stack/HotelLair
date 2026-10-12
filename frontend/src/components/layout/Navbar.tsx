@@ -22,7 +22,7 @@ function Navbar() {
               H
             </span>
             <span className="text-base font-semibold tracking-wide">
-              Hotel
+              Hotellair
             </span>
           </a>
         </div>

@@ -19,3 +19,21 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+
+@keyframes partner-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.partner-marquee {
+  width: max-content;
+  animation: partner-scroll 25s linear infinite;
+  will-change: transform;
+}
+

@@ -1,6 +1,7 @@
 import Navbar from "../components/layout/Navbar";
 import Hero from "../components/home/Hero";
 import AboutSection from "../components/home/AboutSection";
+import PartnerStrip from "../components/home/PartnerStrip";
 
 function HomePage() {
     return (
@@ -14,6 +15,7 @@ function HomePage() {
                     <p className="mx-auto mt-4 max-w-xl leading-7 text-stone-600"> Explore exceptional spaces designed for comfort, relaxation and unforgettable experiences.</p>
                 </section>
                 <AboutSection/>
+                <PartnerStrip/>
             </main>
         </div>
     )
