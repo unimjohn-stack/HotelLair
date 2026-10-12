@@ -1,5 +1,6 @@
 import Navbar from "../components/layout/Navbar";
 import Hero from "../components/home/Hero";
+import AboutSection from "../components/home/AboutSection";
 
 function HomePage() {
     return (
@@ -12,6 +13,7 @@ function HomePage() {
                     <h2 className="mt-3 font-serif text-3xl sm:text-4xl"> Discover Your Next Stay</h2>
                     <p className="mx-auto mt-4 max-w-xl leading-7 text-stone-600"> Explore exceptional spaces designed for comfort, relaxation and unforgettable experiences.</p>
                 </section>
+                <AboutSection/>
             </main>
         </div>
     )
