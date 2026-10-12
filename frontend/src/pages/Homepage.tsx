@@ -5,6 +5,9 @@ import PartnerStrip from "../components/home/PartnerStrip";
 import WhyBookWithUs from "../components/home/WhyBookWithUs";
 import ServicesSection from "../components/home/ServicesSection";
 import WeddingEventsSection from "../components/home/EventsSection";
+import ChooseYourRoom from "../components/home/ChooseRooms";
+import EnjoyYourTime from "../components/home/EnjoyYourTime";
+import BlogSection from '../components/home/BlogSection'
 
 function HomePage() {
     return (
@@ -22,6 +25,9 @@ function HomePage() {
                 <WhyBookWithUs/>
                 <ServicesSection />
                 <WeddingEventsSection />
+                <ChooseYourRoom />
+                <EnjoyYourTime />
+                <BlogSection />
             </main>
         </div>
     )
