@@ -8,6 +8,7 @@ import WeddingEventsSection from "../components/home/EventsSection";
 import ChooseYourRoom from "../components/home/ChooseRooms";
 import EnjoyYourTime from "../components/home/EnjoyYourTime";
 import BlogSection from '../components/home/BlogSection'
+import TestimonialsSection from "../components/home/TestimonialSection";
 
 function HomePage() {
     return (
@@ -28,6 +29,7 @@ function HomePage() {
                 <ChooseYourRoom />
                 <EnjoyYourTime />
                 <BlogSection />
+                <TestimonialsSection />
             </main>
         </div>
     )

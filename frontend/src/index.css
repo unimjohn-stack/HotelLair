@@ -37,3 +37,28 @@ body {
   will-change: transform;
 } */
 
+
+@keyframes testimonial-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 6px));
+  }
+}
+
+.testimonial-track {
+  animation: testimonial-scroll 35s linear infinite;
+  will-change: transform;
+}
+
+.testimonial-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-track {
+    animation: none;
+  }
+}
