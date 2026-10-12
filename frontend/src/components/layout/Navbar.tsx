@@ -16,19 +16,17 @@ function Navbar() {
     <header className="absolute inset-x-0 top-4 z-50 px-4 sm:top-6 sm:px-6 lg:px-10">
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-white/25 bg-white/15 px-4 py-3 shadow-lg backdrop-blur-xl sm:px-6">
 
-        {/* Logo */}
         <div className="flex shrink-0 items-center">
           <a href="#" className="flex items-center gap-2 text-white">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#d8bd83] font-serif text-xl font-bold text-[#292820] transition-transform duration-300 hover:rotate-6">
-              S
+              H
             </span>
             <span className="text-base font-semibold tracking-wide">
-              Sunest
+              Hotel
             </span>
           </a>
         </div>
 
-        {/* Desktop navigation */}
         <div className="hidden items-center gap-5 lg:flex xl:gap-7">
           {navLinks.map((link) => (
             <a
@@ -63,7 +61,6 @@ function Navbar() {
           ))}
         </div>
 
-        {/* Actions */}
         <div className="flex shrink-0 items-center gap-3">
           <a
             href="#contact"
@@ -74,8 +71,6 @@ function Navbar() {
               ↗
             </span>
           </a>
-
-          {/* Avatar */}
           <button
             type="button"
             aria-label="Open account menu"
@@ -88,7 +83,6 @@ function Navbar() {
             />
           </button>
 
-          {/* Mobile menu button */}
           <button
             type="button"
             aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -118,7 +112,6 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Mobile navigation dropdown */}
         {mobileMenuOpen && (
           <div className="absolute inset-x-0 top-full mt-3 rounded-3xl border border-white/20 bg-[#292820]/95 p-4 shadow-xl backdrop-blur-xl lg:hidden">
             <div className="flex flex-col gap-1">
