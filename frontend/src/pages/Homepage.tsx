@@ -2,6 +2,9 @@ import Navbar from "../components/layout/Navbar";
 import Hero from "../components/home/Hero";
 import AboutSection from "../components/home/AboutSection";
 import PartnerStrip from "../components/home/PartnerStrip";
+import WhyBookWithUs from "../components/home/WhyBookWithUs";
+import ServicesSection from "../components/home/ServicesSection";
+import WeddingEventsSection from "../components/home/EventsSection";
 
 function HomePage() {
     return (
@@ -16,6 +19,9 @@ function HomePage() {
                 </section>
                 <AboutSection/>
                 <PartnerStrip/>
+                <WhyBookWithUs/>
+                <ServicesSection />
+                <WeddingEventsSection />
             </main>
         </div>
     )
