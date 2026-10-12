@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 
 const blogPosts = [
   {
@@ -127,7 +129,7 @@ function BlogSection() {
           >
             Explore All Blog
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#292820]">
-              →
+              <FontAwesomeIcon icon={faBookOpen} />
             </span>
           </a>
         </div>

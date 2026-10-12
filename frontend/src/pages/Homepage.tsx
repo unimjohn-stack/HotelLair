@@ -9,6 +9,7 @@ import ChooseYourRoom from "../components/home/ChooseRooms";
 import EnjoyYourTime from "../components/home/EnjoyYourTime";
 import BlogSection from '../components/home/BlogSection'
 import TestimonialsSection from "../components/home/TestimonialSection";
+import Footer from "../components/layout/Footer";
 
 function HomePage() {
     return (
@@ -16,11 +17,11 @@ function HomePage() {
             <Navbar />
             <main>
                 <Hero />
-                <section id="stays" className="bg-[#eee9df] px-5 py-20 text-center sm:py-24">
+                {/* <section id="stays" className="bg-[#eee9df] px-5 py-20 text-center sm:py-24">
                     <p className="text-xs uppercase tracking-[0.25em] text-[#a58a53]"> Our Collection</p>
                     <h2 className="mt-3 font-serif text-3xl sm:text-4xl"> Discover Your Next Stay</h2>
                     <p className="mx-auto mt-4 max-w-xl leading-7 text-stone-600"> Explore exceptional spaces designed for comfort, relaxation and unforgettable experiences.</p>
-                </section>
+                </section> */}
                 <AboutSection/>
                 <PartnerStrip/>
                 <WhyBookWithUs/>
@@ -31,6 +32,7 @@ function HomePage() {
                 <BlogSection />
                 <TestimonialsSection />
             </main>
+            <Footer />
         </div>
     )
 }

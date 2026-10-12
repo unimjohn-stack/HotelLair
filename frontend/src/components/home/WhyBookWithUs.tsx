@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const benefits = [
   {
@@ -93,7 +95,7 @@ function WhyBookWithUs() {
             >
               Explore More
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#d8bd83] text-[#242422] transition group-hover:bg-white">
-                ↗
+                <FontAwesomeIcon icon={faArrowRight} />            
               </span>
             </a>
           </div>

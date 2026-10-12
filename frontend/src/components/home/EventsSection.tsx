@@ -1,4 +1,5 @@
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChampagneGlasses } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react"
 
 const eventImages = [
@@ -135,7 +136,7 @@ function WeddingEventsSection() {
           >
             Explore More
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#292820]">
-              ↗
+              <FontAwesomeIcon icon={faChampagneGlasses} />
             </span>
           </a>
 

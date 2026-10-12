@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const aboutImages = [
   {
@@ -40,7 +42,7 @@ function AboutSection() {
           >
             Explore More
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#292820] text-white transition group-hover:bg-[#d8bd83] group-hover:text-[#292820]">
-              ↗
+                <FontAwesomeIcon icon={faArrowRight} />            
             </span>
           </a>
 

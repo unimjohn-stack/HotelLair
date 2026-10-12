@@ -21,7 +21,7 @@ body {
 }
 
 
-/* @keyframes partner-scroll {
+@keyframes partner-scroll {
   from {
     transform: translateX(0);
   }
@@ -35,7 +35,7 @@ body {
   width: max-content;
   animation: partner-scroll 25s linear infinite;
   will-change: transform;
-} */
+}
 
 
 @keyframes testimonial-scroll {
@@ -61,4 +61,9 @@ body {
   .testimonial-track {
     animation: none;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
 }

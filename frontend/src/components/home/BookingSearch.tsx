@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 function BookingSearch() {
   return (
@@ -59,7 +61,7 @@ function BookingSearch() {
           type="submit"
           className="rounded-full bg-[#292820] px-4 py-3 text-sm font-medium text-white transition hover:bg-[#806c46]"
         >
-          Check Availability ↗
+          Check Availability <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
       </div>
     </form>

@@ -1,7 +1,8 @@
 
+
 const partners = [
   { name: "SUNSET", symbol: "⌂" },
-  { name: "TRAVELWORLD", symbol: "✳" },
+  { name: "TRAVELWORLD", symbol: "" },
   { name: "TRAVEL & HOTEL", symbol: "M" },
   { name: "airbnb", symbol: "⌂" },
   { name: "CREATE LOGO", symbol: "▣" },

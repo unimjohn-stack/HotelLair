@@ -1,6 +1,3 @@
-
-import { useState } from "react"
-
 const testimonials = [
   {
     name: "Esther Hills",
@@ -33,18 +30,18 @@ const testimonials = [
 ]
 
 function TestimonialsSection() {
-  const [activeIndex, setActiveIndex] = useState(0)
+//   const [activeIndex, setActiveIndex] = useState(0)
 
-  const changeSlide = (direction: number) => {
-    setActiveIndex(
-      (current) =>
-        (current + direction + testimonials.length) % testimonials.length
-    )
-  }
+//   const changeSlide = (direction: number) => {
+//     setActiveIndex(
+//       (current) =>
+//         (current + direction + testimonials.length) % testimonials.length
+//     )
+//   }
 
-  const visibleTestimonials = [0, 1, 2].map(
-    (offset) => testimonials[(activeIndex + offset) % testimonials.length]
-  )
+//   const visibleTestimonials = [0, 1, 2].map(
+//     (offset) => testimonials[(activeIndex + offset) % testimonials.length]
+//   )
 
   return (
     <section

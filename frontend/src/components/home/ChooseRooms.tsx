@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBed } from "@fortawesome/free-solid-svg-icons";
 
 const rooms = [
   {
@@ -41,15 +43,15 @@ const rooms = [
 function ChooseYourRoom() {
   const [activeIndex, setActiveIndex] = useState(1)
 
-  const changeSlide = (direction: number) => {
-    setActiveIndex(
-      (current) => (current + direction + rooms.length) % rooms.length
-    )
-  }
+//   const changeSlide = (direction: number) => {
+//     setActiveIndex(
+//       (current) => (current + direction + rooms.length) % rooms.length
+//     )
+//   }
 
   return (
     <section
-      id="rooms"
+      id="stays"
       className="overflow-hidden bg-[#f8f6f0] pb-12 sm:pb-16"
     >
       {/* Gold patterned heading */}
@@ -169,7 +171,7 @@ function ChooseYourRoom() {
         >
           Explore All Suites
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#292820]">
-            →
+            <FontAwesomeIcon icon={faBed} />
           </span>
         </a>
       </div>

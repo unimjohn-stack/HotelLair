@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUmbrellaBeach } from "@fortawesome/free-solid-svg-icons";
+
 const destinations = [
   {
     name: "Mountain",
@@ -57,7 +60,7 @@ function EnjoyYourTime() {
             >
               Explore More
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#292820]">
-                →
+                <FontAwesomeIcon icon={faUmbrellaBeach} />
               </span>
             </a>
           </div>

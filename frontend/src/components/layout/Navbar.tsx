@@ -1,13 +1,17 @@
-
 import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {faBars, faXmark, faUser, faChevronDown, } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
 
 const navLinks = [
-  { label: "Home", href: "#" },
+  { label: "Home", href: "#home" },
   { label: "Hotels", href: "#stays" },
   { label: "Weddings & Events", href: "#events" },
-  { label: "Pages", href: "#services", dropdown: true },
+  { label: "Pages", href: "#experiences", dropdown: true, },
   { label: "About Us", href: "#about" },
 ]
+
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -36,7 +40,7 @@ function Navbar() {
             >
               {link.label}
 
-              {link.dropdown && (
+              {/* {link.dropdown && (
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 20 20"
@@ -51,7 +55,7 @@ function Navbar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              )}
+              )} */}
 
               <span
                 aria-hidden="true"
@@ -68,7 +72,7 @@ function Navbar() {
           >
             Contact Us
             <span className="ml-1 inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-              ↗
+            <FontAwesomeIcon icon={faEnvelope} />
             </span>
           </a>
           <button

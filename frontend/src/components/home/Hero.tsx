@@ -1,11 +1,13 @@
 import BookingSearch from "./BookingSearch"
 import HeroPreviewCard from "./HeroPreviewCard"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+
 
 function Hero() {
   return (
-    <section 
-    
-className="relative flex min-h-[820px] items-start overflow-visible bg-cover bg-center px-5 pb-24 pt-40 sm:min-h-[780px] sm:items-center sm:px-8 sm:pt-36 lg:min-h-[850px] lg:px-12"
+    <section id="home"
+    className="relative flex min-h-[820px] items-start overflow-visible bg-cover bg-center px-5 pb-24 pt-40 sm:min-h-[780px] sm:items-center sm:px-8 sm:pt-36 lg:min-h-[850px] lg:px-12"
 
     style={{
         backgroundImage:
@@ -39,7 +41,7 @@ className="relative flex min-h-[820px] items-start overflow-visible bg-cover bg-
           >
             Booking Now
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white">
-              ↗
+              <FontAwesomeIcon icon={faCalendarCheck} />
             </span>
           </a>
         </div>
