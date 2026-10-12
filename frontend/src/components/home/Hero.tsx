@@ -3,9 +3,11 @@ import HeroPreviewCard from "./HeroPreviewCard"
 
 function Hero() {
   return (
-    <section
-      className="relative flex min-h-[720px] items-center overflow-visible bg-cover bg-center px-5 pb-24 pt-36 sm:min-h-[780px] sm:px-8 lg:min-h-[850px] lg:px-12"
-      style={{
+    <section 
+    
+className="relative flex min-h-[820px] items-start overflow-visible bg-cover bg-center px-5 pb-24 pt-40 sm:min-h-[780px] sm:items-center sm:px-8 sm:pt-36 lg:min-h-[850px] lg:px-12"
+
+    style={{
         backgroundImage:
           "url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=85')",
       }}
@@ -33,7 +35,7 @@ function Hero() {
 
           <a
             href="#booking"
-            className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#d8bd83] py-2 pl-6 pr-2 text-sm font-semibold text-[#292820] transition hover:bg-white"
+            className="mt-5 inline-flex items-center gap-3 rounded-full bg-[#d8bd83] py-2 pl-6 pr-2 text-sm font-semibold text-[#292820] transition hover:bg-white"
           >
             Booking Now
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white">
@@ -42,11 +44,13 @@ function Hero() {
           </a>
         </div>
 
-        <HeroPreviewCard
-          image="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=85"
-          title="Discover exceptional spaces"
-          description="It's not always easy for travellers to know where to stay."
-        />
+        <div className="hidden lg:block">
+            <HeroPreviewCard
+                image="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=85"
+                title="Discover exceptional spaces"
+                description="It's not always easy for travellers to know where to stay."
+            />
+        </div>
       </div>
 
       {/* Decorative slide indicator */}

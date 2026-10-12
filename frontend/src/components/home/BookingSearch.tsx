@@ -9,8 +9,7 @@ function BookingSearch() {
           behavior: 'smooth',
         })
       }}
-      className="absolute inset-x-4 -bottom-12 z-20 mx-auto max-w-6xl rounded-xl bg-white p-4 shadow-xl sm:inset-x-8 sm:p-5 lg:inset-x-12"
-    >
+        className="absolute inset-x-4 bottom-4 z-20 mx-auto max-w-6xl rounded-xl bg-white p-4 shadow-xl sm:inset-x-8 sm:-bottom-12 sm:p-5 lg:inset-x-12"    >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end lg:gap-5">
         <label className="flex min-w-0 flex-col gap-2">
           <span className="text-xs text-stone-500">Destination</span>
