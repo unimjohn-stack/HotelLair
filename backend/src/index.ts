@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors"
 import dotenv from "dotenv";
 
+import { notFound } from "./middleware/notFound.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+
 import connectDB from "./config/db.js";
 import propertyRoutes from "./routes/propertyRoutes.js"
 import bookingRoutes from "./routes/bookingRoutes.js"
@@ -23,6 +26,8 @@ app.use(express.json());
 app.get("/", (_req, res) => {
     res.status(200).json({ message: "Welcome to hotelLair API!", success: true });
 });
+app.use(notFound);
+app.use(errorHandler);
 
 app.use("/api/properties", propertyRoutes);
 app.use("api/bookings", bookingRoutes);
