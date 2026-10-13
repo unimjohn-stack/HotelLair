@@ -32,6 +32,19 @@ export const errorHandler = (
     return;
   }
 
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    error.code === 11000
+  ) {
+    res.status(409).json({
+      success: false,
+      message: "A record with this value already exists",
+    });
+    return;
+  }
+
   const statusCode =
     typeof error === "object" &&
     error !== null &&

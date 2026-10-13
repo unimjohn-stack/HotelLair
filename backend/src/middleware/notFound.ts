@@ -1,9 +1,8 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 
 export const notFound = (
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ): void => {
   res.status(404).json({
     success: false,

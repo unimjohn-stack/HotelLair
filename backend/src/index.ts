@@ -25,20 +25,21 @@ app.use(
 );
 
 app.use(express.json());
-app.use(notFound);
-app.use(errorHandler);
 app.use(cookieParser());
 app.get("/", (_req, res) => {
     res.status(200).json({ message: "Welcome to hotelLair API!", success: true });
+});
+app.get("/api/health", (_req, res) => {
+    res.status(200).json({ status: "healthy", service: "HotelLair Backend", timestamp: new Date().toISOString() });
 });
 
 app.use("/api/properties", propertyRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/auth", authRoutes)
 
-app.get("/api/health", (_req, res) => {
-    res.status(200).json({ status: "healthy", service: "HotelLair Backend", timestamp: new Date().toISOString() });
-});
+app.use(notFound);
+app.use(errorHandler);
+
 
 const startServer = async (): Promise<void> => {
     try {
