@@ -1,11 +1,12 @@
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import Booking from "../models/bookingModel.js";
 import Property from "../models/propertyModel.js";
 
 export const getAllBookings = async (
   _req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const bookings = await Booking.find()
@@ -18,18 +19,14 @@ export const getAllBookings = async (
       data: bookings,
     });
   } catch (error) {
-    console.error("Error fetching bookings:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch bookings",
-    });
+    next(error);
   }
 };
 
 export const getBookingById = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -60,18 +57,14 @@ export const getBookingById = async (
       data: booking,
     });
   } catch (error) {
-    console.error("Error fetching booking:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch booking",
-    });
+    next(error);
   }
 };
 
 export const createBooking = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const {
@@ -85,54 +78,8 @@ export const createBooking = async (
       specialRequests,
     } = req.body;
 
-    if (
-      !propertyId ||
-      !guestName?.trim() ||
-      !guestEmail?.trim() ||
-      !guestPhone?.trim() ||
-      !checkIn ||
-      !checkOut ||
-      guests === undefined ||
-      guests === null
-    ) {
-      res.status(400).json({
-        success: false,
-        message: "Please provide all required booking details",
-      });
-      return;
-    }
-
-    if (!mongoose.isValidObjectId(propertyId)) {
-      res.status(400).json({
-        success: false,
-        message: "Invalid property ID",
-      });
-      return;
-    }
-
     const startDate = new Date(checkIn);
     const endDate = new Date(checkOut);
-    const guestCount = Number(guests);
-
-    if (
-      Number.isNaN(startDate.getTime()) ||
-      Number.isNaN(endDate.getTime()) ||
-      endDate <= startDate
-    ) {
-      res.status(400).json({
-        success: false,
-        message: "Check-out must be after a valid check-in date",
-      });
-      return;
-    }
-
-    if (!Number.isInteger(guestCount) || guestCount < 1) {
-      res.status(400).json({
-        success: false,
-        message: "Guests must be a positive whole number",
-      });
-      return;
-    }
 
     const property = await Property.findById(propertyId);
 
@@ -145,14 +92,14 @@ export const createBooking = async (
     }
 
     if (!property.isAvailable) {
-      res.status(400).json({
+      res.status(409).json({
         success: false,
         message: "This property is currently unavailable",
       });
       return;
     }
 
-    if (guestCount > property.maxGuests) {
+    if (guests > property.maxGuests) {
       res.status(400).json({
         success: false,
         message: `This property accommodates a maximum of ${property.maxGuests} guests`,
@@ -182,7 +129,7 @@ export const createBooking = async (
       guestPhone,
       checkIn: startDate,
       checkOut: endDate,
-      guests: guestCount,
+      guests,
       specialRequests,
     });
 
@@ -192,29 +139,14 @@ export const createBooking = async (
       data: booking,
     });
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      res.status(400).json({
-        success: false,
-        message: "Booking validation failed",
-        errors: Object.values(error.errors).map(
-          (validationError) => validationError.message
-        ),
-      });
-      return;
-    }
-
-    console.error("Error creating booking:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to create booking",
-    });
+    next(error);
   }
 };
 
 export const updateBooking = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -237,42 +169,22 @@ export const updateBooking = async (
       return;
     }
 
-    const allowedFields = [
-      "guestName",
-      "guestEmail",
-      "guestPhone",
-      "checkIn",
-      "checkOut",
-      "guests",
-      "specialRequests",
-      "status",
-    ];
-
-    const updates: Record<string, unknown> = {};
-
-    for (const field of allowedFields) {
-      if (req.body[field] !== undefined) {
-        updates[field] = req.body[field];
-      }
-    }
-
-    if (Object.keys(updates).length === 0) {
-      res.status(400).json({
-        success: false,
-        message: "Provide at least one valid field to update",
-      });
-      return;
-    }
+    const {
+      guestName,
+      guestEmail,
+      guestPhone,
+      checkIn,
+      checkOut,
+      guests,
+      specialRequests,
+      status,
+    } = req.body;
 
     const startDate =
-      updates.checkIn !== undefined
-        ? new Date(updates.checkIn as string)
-        : booking.checkIn;
+      checkIn !== undefined ? new Date(checkIn) : booking.checkIn;
 
     const endDate =
-      updates.checkOut !== undefined
-        ? new Date(updates.checkOut as string)
-        : booking.checkOut;
+      checkOut !== undefined ? new Date(checkOut) : booking.checkOut;
 
     if (
       Number.isNaN(startDate.getTime()) ||
@@ -281,18 +193,12 @@ export const updateBooking = async (
     ) {
       res.status(400).json({
         success: false,
-        message: "Check-out must be after a valid check-in date",
+        message: "Check-out must be after check-in",
       });
       return;
     }
 
-    if (updates.checkIn !== undefined) updates.checkIn = startDate;
-    if (updates.checkOut !== undefined) updates.checkOut = endDate;
-
-    const guestCount =
-      updates.guests !== undefined
-        ? Number(updates.guests)
-        : booking.guests;
+    const guestCount = guests !== undefined ? guests : booking.guests;
 
     if (!Number.isInteger(guestCount) || guestCount < 1) {
       res.status(400).json({
@@ -312,6 +218,14 @@ export const updateBooking = async (
       return;
     }
 
+    if (!property.isAvailable && status === "confirmed") {
+      res.status(409).json({
+        success: false,
+        message: "This property is currently unavailable",
+      });
+      return;
+    }
+
     if (guestCount > property.maxGuests) {
       res.status(400).json({
         success: false,
@@ -320,10 +234,9 @@ export const updateBooking = async (
       return;
     }
 
-    const nextStatus =
-      updates.status !== undefined ? updates.status : booking.status;
+    const nextStatus = status ?? booking.status;
 
-    if (nextStatus === "pending" || nextStatus === "confirmed") {
+    if (["pending", "confirmed"].includes(nextStatus)) {
       const overlappingBooking = await Booking.findOne({
         _id: { $ne: booking._id },
         property: booking.property,
@@ -341,7 +254,17 @@ export const updateBooking = async (
       }
     }
 
-    Object.assign(booking, updates);
+    if (guestName !== undefined) booking.guestName = guestName;
+    if (guestEmail !== undefined) booking.guestEmail = guestEmail;
+    if (guestPhone !== undefined) booking.guestPhone = guestPhone;
+    if (checkIn !== undefined) booking.checkIn = startDate;
+    if (checkOut !== undefined) booking.checkOut = endDate;
+    if (guests !== undefined) booking.guests = guestCount;
+    if (specialRequests !== undefined) {
+      booking.specialRequests = specialRequests;
+    }
+    if (status !== undefined) booking.status = status;
+
     await booking.save();
 
     res.status(200).json({
@@ -350,29 +273,14 @@ export const updateBooking = async (
       data: booking,
     });
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      res.status(400).json({
-        success: false,
-        message: "Booking validation failed",
-        errors: Object.values(error.errors).map(
-          (validationError) => validationError.message
-        ),
-      });
-      return;
-    }
-
-    console.error("Error updating booking:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to update booking",
-    });
+    next(error);
   }
 };
 
 export const deleteBooking = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -398,14 +306,8 @@ export const deleteBooking = async (
     res.status(200).json({
       success: true,
       message: "Booking deleted successfully",
-      data: booking,
     });
   } catch (error) {
-    console.error("Error deleting booking:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to delete booking",
-    });
+    next(error);
   }
 };

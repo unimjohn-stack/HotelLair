@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors"
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 import { notFound } from "./middleware/notFound.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -8,7 +9,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import connectDB from "./config/db.js";
 import propertyRoutes from "./routes/propertyRoutes.js"
 import bookingRoutes from "./routes/bookingRoutes.js"
-import cookieParser from "cookie-parser";
+import authRoutes from "./routes/authRoutes.js"
 
 dotenv.config()
 
@@ -32,7 +33,8 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/properties", propertyRoutes);
-app.use("api/bookings", bookingRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/auth", authRoutes)
 
 app.get("/api/health", (_req, res) => {
     res.status(200).json({ status: "healthy", service: "HotelLair Backend", timestamp: new Date().toISOString() });

@@ -1,32 +1,21 @@
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
 import { generateToken } from "../utils/generateToken.js";
 
 const isProduction = process.env.NODE_ENV === "production";
 
+
 export const loginAdmin = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { email, password } = req.body;
 
-    if (
-      typeof email !== "string" ||
-      typeof password !== "string" ||
-      !email.trim() ||
-      !password
-    ) {
-      res.status(400).json({
-        success: false,
-        message: "Email and password are required",
-      });
-      return;
-    }
-
     const admin = await User.findOne({
-      email: email.trim().toLowerCase(),
+      email,
       role: "admin",
       isActive: true,
     }).select("+passwordHash");
@@ -69,19 +58,14 @@ export const loginAdmin = async (
       success: true,
       message: "Admin login successful",
       data: {
-        id: admin._id,
+        id: admin._id.toString(),
         name: admin.name,
         email: admin.email,
         role: admin.role,
       },
     });
   } catch (error) {
-    console.error("Admin login failed:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Unable to log in",
-    });
+    next(error);
   }
 };
 
