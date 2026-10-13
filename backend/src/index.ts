@@ -8,6 +8,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import connectDB from "./config/db.js";
 import propertyRoutes from "./routes/propertyRoutes.js"
 import bookingRoutes from "./routes/bookingRoutes.js"
+import cookieParser from "cookie-parser";
 
 dotenv.config()
 
@@ -23,11 +24,12 @@ app.use(
 );
 
 app.use(express.json());
+app.use(notFound);
+app.use(errorHandler);
+app.use(cookieParser());
 app.get("/", (_req, res) => {
     res.status(200).json({ message: "Welcome to hotelLair API!", success: true });
 });
-app.use(notFound);
-app.use(errorHandler);
 
 app.use("/api/properties", propertyRoutes);
 app.use("api/bookings", bookingRoutes);
