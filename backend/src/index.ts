@@ -3,6 +3,7 @@ import cors from "cors"
 import dotenv from "dotenv";
 
 import connectDB from "./config/db.js";
+import propertyRoutes from "./routes/propertyRoutes.js"
 
 dotenv.config()
 
@@ -21,6 +22,8 @@ app.use(express.json());
 app.get("/", (_req, res) => {
     res.status(200).json({ message: "Welcome to hotelLair API!", success: true });
 });
+
+app.use("/api/properties", propertyRoutes);
 
 app.get("/api/health", (_req, res) => {
     res.status(200).json({ status: "healthy", service: "HotelLair Backend", timestamp: new Date().toISOString() });
