@@ -141,7 +141,7 @@ function Footer() {
           {/* Copyright and social links */}
           <div className="mt-8 flex flex-col gap-4 border-t border-stone-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[10px] text-stone-600">
-              © Copyright 2026 | Hotaller. All rights reserved.
+              © Copyright 2026 | HotalLair. All rights reserved.
             </p>
 
             <div className="flex items-center gap-3">

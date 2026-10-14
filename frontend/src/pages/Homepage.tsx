@@ -10,6 +10,7 @@ import EnjoyYourTime from "../components/home/EnjoyYourTime";
 import BlogSection from '../components/home/BlogSection'
 import TestimonialsSection from "../components/home/TestimonialSection";
 import Footer from "../components/layout/Footer";
+import ChatWidget from "../components/chat/ChatWidget";
 
 function HomePage() {
     return (
@@ -31,6 +32,7 @@ function HomePage() {
                 <EnjoyYourTime />
                 <BlogSection />
                 <TestimonialsSection />
+                <ChatWidget />
             </main>
             <Footer />
         </div>
