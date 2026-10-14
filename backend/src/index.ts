@@ -7,9 +7,10 @@ import { notFound } from "./middleware/notFound.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 import connectDB from "./config/db.js";
-import propertyRoutes from "./routes/propertyRoutes.js"
-import bookingRoutes from "./routes/bookingRoutes.js"
-import authRoutes from "./routes/authRoutes.js"
+import propertyRoutes from "./routes/propertyRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config()
 
@@ -35,7 +36,8 @@ app.get("/api/health", (_req, res) => {
 
 app.use("/api/properties", propertyRoutes);
 app.use("/api/bookings", bookingRoutes);
-app.use("/api/auth", authRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
