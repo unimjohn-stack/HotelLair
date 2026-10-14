@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 export interface KnowledgeChunk {
   id: string;
   text: string;
@@ -103,11 +105,17 @@ export const chunkMarkdown = (
 
       if (chunkText) {
         chunks.push({
-          id: `${source}:${chunkIndex}`,
-          text: `Section: ${section.heading}\n\n${chunkText}`,
-          source,
-          section: section.heading,
-          chunkIndex,
+            id: createHash("sha256")
+            .update(`${source}:${section.heading}:${chunkIndex}:${chunkText}`)
+            .digest("hex")
+            .replace(
+                /^(.{8})(.{4})(.{4})(.{4})(.{12}).*$/,
+                "$1-$2-$3-$4-$5"
+            ),
+            text: `Section: ${section.heading}\n\n${chunkText}`,
+            source,
+            section: section.heading,
+            chunkIndex,
         });
 
         chunkIndex += 1;
