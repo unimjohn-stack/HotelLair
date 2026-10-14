@@ -12,7 +12,7 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 
-dotenv.config()
+dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT) || 8080;
