@@ -10,7 +10,7 @@ if (!apiKey) {
 
 const genAI = new GoogleGenAI({ apiKey });
 
-const CHAT_MODEL = "gemini-2.5-flash";
+const CHAT_MODEL = "gemini-3.5-flash-lite";
 
 export interface ChatResponse {
   answer: string;
