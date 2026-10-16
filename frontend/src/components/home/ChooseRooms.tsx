@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed } from "@fortawesome/free-solid-svg-icons";
 import { getProperties, type Property } from "../../lib/properties";
+import { useBookingSearch } from "../../context/BookingSearchContext";
 
 
 
@@ -44,11 +45,11 @@ import { getProperties, type Property } from "../../lib/properties";
 // ]
 
 function ChooseYourRoom() {
-  // const [activeIndex, setActiveIndex] = useState(1);
   const [properties, setProperties] = useState<Property[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const { criteria, selectProperty } = useBookingSearch();
 
   useEffect(() => {
     let cancelled = false;
@@ -71,6 +72,9 @@ function ChooseYourRoom() {
         if (!cancelled) setIsLoading(false);
       }
     }
+    
+
+    
 
     void loadProperties();
 
@@ -78,143 +82,30 @@ function ChooseYourRoom() {
       cancelled = true;
     };
   }, []);
-  
-  const visibleProperties = properties;
+
+  const filteredProperties = properties.filter((property) => {
+    const destination = criteria.destination.trim().toLowerCase();
+
+    const destinationMatches =
+      !destination ||
+      property.location.toLowerCase().includes(destination) ||
+      property.name.toLowerCase().includes(destination);
+
+    const guestCapacityMatches = property.maxGuests >= criteria.guests;
+
+    return destinationMatches && guestCapacityMatches;
+  });
+
+  const visibleProperties = filteredProperties;
   const safeActiveIndex =
-    visibleProperties.length > 0
-      ? activeIndex % visibleProperties.length
-      : 0;
+  visibleProperties.length > 0
+    ? activeIndex % visibleProperties.length
+    : 0;
 
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [criteria.destination, criteria.guests]);
 
-
-  // return (
-  //   <section
-  //     id="stays"
-  //     className="overflow-hidden bg-[#f8f6f0] pb-12 sm:pb-16"
-  //   >
-  //     {/* Gold patterned heading */}
-  //     <div
-  //       className="px-5 py-10 text-center text-white sm:py-12"
-  //       style={{
-  //         backgroundColor: "#ad8954",
-  //         backgroundImage:
-  //           "repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.045) 12px 14px), repeating-linear-gradient(-45deg, transparent 0 12px, rgba(255,255,255,0.035) 12px 14px)",
-  //       }}
-  //     >
-  //       <h2 className="font-serif text-2xl font-semibold sm:text-3xl">
-  //         Choose Your Room
-  //       </h2>
-
-  //       <p className="mx-auto mt-3 max-w-lg text-xs leading-5 text-white/90 sm:text-sm">
-  //         Explore a variety of rooms tailored to your comfort and style.
-  //         Whether you&apos;re traveling solo or with family, find the perfect
-  //         space to unwind.
-  //       </p>
-  //     </div>
-
-  //     {/* Room image carousel */}
-  //     <div className="relative mx-auto h-[230px] max-w-7xl sm:h-[290px] lg:h-[340px]">
-  //       {rooms.map((room, index) => {
-  //         const offset = (index - activeIndex + rooms.length) % rooms.length
-
-  //         const position =
-  //           offset > Math.floor(rooms.length / 2)
-  //             ? offset - rooms.length
-  //             : offset
-
-  //         const distance = Math.abs(position)
-
-  //         return (
-  //           <button
-  //             key={room.name}
-  //             type="button"
-  //             onClick={() => setActiveIndex(index)}
-  //             aria-label={`View ${room.name}`}
-  //             aria-pressed={index === activeIndex}
-  //             className="absolute top-1/2 overflow-hidden rounded-md shadow-sm transition-all duration-500 ease-in-out"
-  //             style={{
-  //               left: `${50 + position * 17.5}%`,
-  //               width:
-  //                 distance === 0
-  //                   ? "46%"
-  //                   : distance === 1
-  //                     ? "30%"
-  //                     : "24%",
-  //               height:
-  //                 distance === 0
-  //                   ? "100%"
-  //                   : distance === 1
-  //                     ? "82%"
-  //                     : "68%",
-  //               transform: `translate(-50%, -50%) scale(${
-  //                 distance === 0 ? 1 : distance === 1 ? 0.94 : 0.88
-  //               })`,
-  //               opacity:
-  //                 distance === 0 ? 1 : distance === 1 ? 0.9 : 0.72,
-  //               zIndex: 10 - distance,
-  //               pointerEvents: distance > 2 ? "none" : "auto",
-  //             }}
-  //           >
-  //             <img
-  //               src={room.src}
-  //               alt={room.alt}
-  //               loading="lazy"
-  //               className="block h-full w-full object-cover"
-  //             />
-
-  //             {distance === 0 && (
-  //               <>
-  //                 <span className="absolute left-3 top-3 rounded-sm bg-black/75 px-2 py-1 text-[9px] text-white sm:text-[10px]">
-  //                   {room.badge}
-  //                 </span>
-
-  //                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-3 pb-3 pt-12 text-center text-white sm:px-5 sm:pb-4">
-  //                   <h3 className="font-serif text-sm font-semibold sm:text-lg">
-  //                     {room.name}
-  //                   </h3>
-  //                   <p className="mt-1 text-[9px] text-white/90 sm:text-xs">
-  //                     {room.details}
-  //                   </p>
-  //                 </div>
-  //               </>
-  //             )}
-  //           </button>
-  //         )
-  //       })}
-  //     </div>
-
-  //     {/* Pagination dots */}
-  //     <div className="mt-5 flex items-center justify-center gap-2">
-  //       {rooms.map((room, index) => (
-  //         <button
-  //           key={room.name}
-  //           type="button"
-  //           onClick={() => setActiveIndex(index)}
-  //           aria-label={`Go to ${room.name}`}
-  //           aria-current={index === activeIndex ? "true" : undefined}
-  //           className={`h-1.5 rounded-full transition-all duration-300 ${
-  //             index === activeIndex
-  //               ? "w-5 bg-[#ad8954]"
-  //               : "w-1.5 bg-[#d5c9b6] hover:bg-[#ad8954]"
-  //           }`}
-  //         />
-  //       ))}
-  //     </div>
-
-  //     {/* Explore all rooms */}
-  //     <div className="mt-5 text-center">
-  //       <a
-  //         href="#contact"
-  //         className="inline-flex items-center gap-3 rounded-full bg-[#ad8954] py-1 pl-5 pr-1 text-xs font-medium text-white transition hover:bg-[#292820]"
-  //       >
-  //         Explore All Suites
-  //         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#292820]">
-  //           <FontAwesomeIcon icon={faBed} />
-  //         </span>
-  //       </a>
-  //     </div>
-  //   </section>
-  // )
 
    return (
     <section
@@ -254,7 +145,7 @@ function ChooseYourRoom() {
         </div>
       ) : visibleProperties.length === 0 ? (
         <p className="py-16 text-center text-sm text-stone-600">
-          No available properties right now. Please check back soon.
+          No properties match your search. Try another destination or fewer guests.
         </p>
       ) : (
         <>
@@ -338,7 +229,7 @@ function ChooseYourRoom() {
             ))}
           </div>
 
-          <div className="mt-5 text-center">
+          {/* <div className="mt-5 text-center">
             <a
               href="#booking"
               className="inline-flex items-center gap-3 rounded-full bg-[#ad8954] py-1 pl-5 pr-1 text-xs font-medium text-white transition hover:bg-[#292820]"
@@ -348,7 +239,31 @@ function ChooseYourRoom() {
                 <FontAwesomeIcon icon={faBed} />
               </span>
             </a>
+          </div> */}
+          
+          <div className="mt-5 text-center">
+            <button
+              type="button"
+              onClick={() => {
+              const selectedProperty = visibleProperties[safeActiveIndex];
+
+              if (!selectedProperty) return;
+
+              selectProperty(selectedProperty);
+
+              document
+                .getElementById("booking")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+              className="inline-flex items-center gap-3 rounded-full bg-[#ad8954] py-1 pl-5 pr-1 text-xs font-medium text-white transition hover:bg-[#292820]"
+            >
+              Book This Property
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#292820]">
+                <FontAwesomeIcon icon={faBed} />
+              </span>
+            </button>
           </div>
+
         </>
       )}
     </section>

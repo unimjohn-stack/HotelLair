@@ -1,9 +1,11 @@
+
 import {
   createContext,
   useContext,
   useState,
   type ReactNode,
 } from "react";
+import type { Property } from "../lib/properties";
 
 export interface BookingSearchCriteria {
   destination: string;
@@ -15,6 +17,8 @@ export interface BookingSearchCriteria {
 interface BookingSearchContextValue {
   criteria: BookingSearchCriteria;
   updateCriteria: (criteria: BookingSearchCriteria) => void;
+  selectedProperty: Property | null;
+  selectProperty: (property: Property | null) => void;
 }
 
 const defaultCriteria: BookingSearchCriteria = {
@@ -35,9 +39,17 @@ export function BookingSearchProvider({
   const [criteria, setCriteria] =
     useState<BookingSearchCriteria>(defaultCriteria);
 
+  const [selectedProperty, setSelectedProperty] =
+    useState<Property | null>(null);
+
   return (
     <BookingSearchContext.Provider
-      value={{ criteria, updateCriteria: setCriteria }}
+      value={{
+        criteria,
+        updateCriteria: setCriteria,
+        selectedProperty,
+        selectProperty: setSelectedProperty,
+      }}
     >
       {children}
     </BookingSearchContext.Provider>
