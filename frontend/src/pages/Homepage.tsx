@@ -11,6 +11,7 @@ import BlogSection from '../components/home/BlogSection'
 import TestimonialsSection from "../components/home/TestimonialSection";
 import Footer from "../components/layout/Footer";
 import ChatWidget from "../components/chat/ChatWidget";
+import BookingForm from "../components/booking/BookingForm";
 
 function HomePage() {
     return (
@@ -29,6 +30,7 @@ function HomePage() {
                 <ServicesSection />
                 <WeddingEventsSection />
                 <ChooseYourRoom />
+                <BookingForm/>
                 <EnjoyYourTime />
                 <BlogSection />
                 <TestimonialsSection />

@@ -112,7 +112,7 @@ function BookingSearch() {
 
   return (
     <form
-      id="booking"
+      id="booking-search"
       onSubmit={handleSubmit}
       className="absolute inset-x-4 bottom-4 z-20 mx-auto max-w-6xl rounded-xl bg-white p-4 shadow-xl sm:inset-x-8 sm:-bottom-12 sm:p-5 lg:inset-x-12"
     >

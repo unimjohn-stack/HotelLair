@@ -89,11 +89,11 @@ const ChatWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div className="fixed bottom-4 right-4 z-50">
       {isOpen && (
         <section
           aria-label="HotelLair chat assistant"
-          className="mb-4 flex h-[min(580px,75vh)] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl"
+          className="mb-4 flex h-[min(580px,calc(100dvh-7rem)] w-[min(380px,calc(100vw-2rem))] min-h-0 flex-col overflow-hidden overscroll-contain touch-pan-y rounded-2xl border border-gray-200 bg-white shadow-2xl"
         >
           <header className="flex items-center justify-between bg-slate-900 px-5 py-4 text-white">
             <div>
@@ -114,7 +114,7 @@ const ChatWidget = () => {
           </header>
 
           <div
-            className="flex-1 space-y-4 overflow-y-auto bg-gray-50 p-4"
+            className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain bg-gray-50 p-4"
             aria-live="polite"
             aria-relevant="additions text"
           >
@@ -164,7 +164,7 @@ const ChatWidget = () => {
               placeholder="Ask a question..."
               aria-label="Your question"
               maxLength={2000}
-              className="min-w-0 flex-1 rounded-xl border border-gray-300 px-3 py-3 text-sm outline-none focus:border-slate-700 focus:ring-1 focus:ring-slate-700"
+              className="min-w-0 flex-1 overflow-y-auto overscroll-contain rounded-xl border border-gray-300 px-3 py-3 text-sm outline-none focus:border-slate-700 focus:ring-1 focus:ring-slate-700"
             />
 
             <button

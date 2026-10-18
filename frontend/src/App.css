@@ -182,3 +182,11 @@
     border-right-color: var(--border);
   }
 }
+
+
+/* Prevent mobile browsers from zooming into form fields */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
